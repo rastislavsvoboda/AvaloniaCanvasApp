@@ -1,0 +1,27 @@
+<UserControl x:Class="AvaloniaCanvasApp.Views.AutoClipView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:AvaloniaCanvasApp.Converters"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:shapes="clr-namespace:AvaloniaCanvasApp.ViewModels.Shapes"
+             Width="{Binding Size.Width}"
+             Height="{Binding Size.Height}"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             Design.DataContext="{d:DesignInstance shapes:AutoClipShapeViewModel}"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <converters:IntToUniformThicknessConverter x:Key="IntToUniformThicknessConverter" />
+    </UserControl.Resources>
+
+    <Border Background="{Binding Fill}"
+            BorderBrush="{Binding OutlineColor}"
+            BorderThickness="{Binding OutlineWidth, Converter={StaticResource IntToUniformThicknessConverter}}"
+            CornerRadius="10">
+        <TextBlock HorizontalAlignment="{Binding HorizontalAlignment}"
+                   VerticalAlignment="{Binding VerticalAlignment}"
+                   Foreground="{Binding Color}"
+                   Text="{Binding Text}" />
+    </Border>
+</UserControl>

@@ -1,0 +1,61 @@
+<Window x:Class="AvaloniaCanvasApp.Views.MainWindow"
+        xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:shapes="clr-namespace:AvaloniaCanvasApp.ViewModels.Shapes"
+        xmlns:views="clr-namespace:AvaloniaCanvasApp.Views"
+        xmlns:vm="using:AvaloniaCanvasApp.ViewModels"
+        Title="AvaloniaCanvasApp"
+        d:DesignHeight="450"
+        d:DesignWidth="800"
+        Icon="/Assets/avalonia-logo.ico"
+        mc:Ignorable="d">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel />
+    </Design.DataContext>
+
+    <ScrollViewer Width="1000" Height="1000">
+        <ItemsControl Width="10000"
+                      Height="10000"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Top"
+                      Items="{Binding Shapes}">
+
+            <ItemsControl.DataTemplates>
+                <DataTemplate DataType="shapes:PizzaShapeViewModel">
+                    <views:Pizza Width="{Binding Size.Width}"
+                                 Height="{Binding Size.Height}"
+                                 Fill="{Binding Fill}"
+                                 Stroke="Black"
+                                 StrokeThickness="2" />
+                </DataTemplate>
+                <DataTemplate DataType="shapes:RectangleShapeViewModel">
+                    <Rectangle Width="{Binding Size.Width}"
+                               Height="{Binding Size.Height}"
+                               Fill="{Binding Fill}"
+                               Stroke="Black"
+                               StrokeThickness="1" />
+                </DataTemplate>
+                <DataTemplate DataType="shapes:AutoClipShapeViewModel">
+                    <views:AutoClipView Width="{Binding Size.Width}" Height="{Binding Size.Height}" />
+                </DataTemplate>
+
+
+            </ItemsControl.DataTemplates>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas Background="Beige" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+            <ItemsControl.Styles>
+                <Style Selector="ItemsControl > ContentPresenter">
+                    <Setter Property="Canvas.Left" Value="{Binding Location.X}" />
+                    <Setter Property="Canvas.Top" Value="{Binding Location.Y}" />
+                </Style>
+            </ItemsControl.Styles>
+        </ItemsControl>
+    </ScrollViewer>
+</Window>
